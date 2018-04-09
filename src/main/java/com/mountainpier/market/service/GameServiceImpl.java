@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class GameServiceImpl implements GameService {
@@ -36,6 +37,7 @@ public class GameServiceImpl implements GameService {
 	}
 	
 	@Override
+	@Transactional
 	public Game createGame(GameRequest gameRequest) {
 		Game game = new Game()
 			.setName(gameRequest.getName())
@@ -48,9 +50,8 @@ public class GameServiceImpl implements GameService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public Game getGameById(Integer gameId) {
-		return this.gameRepository.findById(gameId)
-			.orElseThrow(() -> new EntityNotFoundException("Game '{" + gameId + "}' not found"));
+	public Game getGameById(UUID gameId) {
+		return this.gameRepository.getGameById(gameId);
 	}
 	
 	@Override
@@ -60,7 +61,7 @@ public class GameServiceImpl implements GameService {
 	}
 	
 	@Override
-	public Game updateGameById(Integer gameId, GameRequest gameRequest) {
+	public Game updateGameById(UUID gameId, GameRequest gameRequest) {
 		Game game = this.getGameById(gameId);
 		game.setName(gameRequest.getName() != null ? gameRequest.getName() : gameRequest.getName());
 		game.setDescription(gameRequest.getDescription() != null ? gameRequest.getDescription() : gameRequest.getDescription());
@@ -71,14 +72,15 @@ public class GameServiceImpl implements GameService {
 	}
 	
 	@Override
-	public void deleteGameById(Integer gameId) {
-		this.gameRepository.deleteById(gameId);
+	@Transactional
+	public void deleteGameById(UUID gameId) {
+		this.gameRepository.deleteGameById(gameId);
 	}
 	
 	// TODO:
 	@Override
 	@Transactional(readOnly = true)
-	public List<Developer> getDevelopersOfGameById(Integer gameId) {
+	public List<Developer> getDevelopersOfGameById(UUID gameId) {
 //		Game game = this.getGameById(gameId);
 //		return game.getDevelopers();
 		return null;

@@ -6,15 +6,16 @@ import com.mountainpier.market.web.model.GameRequest;
 
 import org.springframework.data.domain.Page;
 import java.util.List;
+import java.util.UUID;
 
 public interface GameService {
 	Page<Game> getGames(Integer page, Integer size);
 	Page<Game> getGamesWithName(String name, Integer page, Integer size);
 	Game createGame(GameRequest gameRequest);
-	Game getGameById(Integer gameId);
+	Game getGameById(UUID gameId);
 	Game getGameByName(String name);
-	Game updateGameById(Integer gameId, GameRequest gameRequest);
-	void deleteGameById(Integer gameId);
+	Game updateGameById(UUID gameId, GameRequest gameRequest);
+	void deleteGameById(UUID gameId);
 	
-	List<Developer> getDevelopersOfGameById(Integer gameId);
+	List<Developer> getDevelopersOfGameById(UUID gameId);
 }

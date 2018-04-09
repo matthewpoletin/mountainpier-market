@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
@@ -46,29 +47,29 @@ public class GameController {
 	public GameResponse createGame(@RequestBody @Valid final GameRequest gameRequest,
 								   HttpServletResponse response) {
 		Game game = this.gameService.createGame(gameRequest);
-		response.addHeader(HttpHeaders.LOCATION, gameBaseURI + "/games/" + game.getId());
+		response.addHeader(HttpHeaders.LOCATION, gameBaseURI + "/games/" + game.getId().toString());
 		return new GameResponse(game);
 	}
 	
 	@RequestMapping(value = "/games/{gameId}", method = RequestMethod.GET)
-	public GameResponse getGameById(@PathVariable(name = "gameId") final Integer gameId) {
+	public GameResponse getGameById(@PathVariable(name = "gameId") final UUID gameId) {
 		return new GameResponse(this.gameService.getGameById(gameId));
 	}
 	
 	@RequestMapping(value = "/games/{gameId}", method = RequestMethod.PATCH)
-	public GameResponse updateGameById(@PathVariable(name = "gameId") final Integer gameId,
+	public GameResponse updateGameById(@PathVariable(name = "gameId") final UUID gameId,
 									   @RequestBody @Valid GameRequest gameRequest) {
 		return new GameResponse(this.gameService.updateGameById(gameId, gameRequest));
 	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@RequestMapping(value = "/games/{gameId}", method = RequestMethod.DELETE)
-	public void deleteGameById(@PathVariable(name = "gameId") final Integer gameId) {
+	public void deleteGameById(@PathVariable(name = "gameId") final UUID gameId) {
 		this.gameService.deleteGameById(gameId);
 	}
 	
 	@RequestMapping(value = "/games/{gameId}/developers", method = RequestMethod.GET)
-	public List<DeveloperResponse> getDevelopersOfGame(@PathVariable(name = "gameId") final Integer gameId) {
+	public List<DeveloperResponse> getDevelopersOfGame(@PathVariable(name = "gameId") final UUID gameId) {
 		return this.gameService.getDevelopersOfGameById(gameId)
 			.stream()
 			.map(DeveloperResponse::new)
