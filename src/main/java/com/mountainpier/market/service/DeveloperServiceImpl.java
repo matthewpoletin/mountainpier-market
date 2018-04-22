@@ -7,10 +7,12 @@ import com.mountainpier.market.web.model.DeveloperRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -93,14 +95,12 @@ public class DeveloperServiceImpl implements DeveloperService {
 		developerRepository.deleteById(developerId);
 	}
 	
-	// TODO:
 	@Override
 	@Transactional(readOnly = true)
 	public Page<Game> getGamesOfDeveloperById(Integer developerId, Integer page, Integer size) {
-//		Developer developer = this.getDeveloperById(developerId);
-//		List<Game> games = developer.getGames();
-//		return new PageImpl<Game>(games, new PageRequest(page, size), games.size());
-		return null;
+		Developer developer = this.getDeveloperById(developerId);
+		List<Game> games = developer.getGames();
+		return new PageImpl<>(games, PageRequest.of(page, size), games.size());
 	}
 	
 }

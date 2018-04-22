@@ -77,13 +77,11 @@ public class GameServiceImpl implements GameService {
 		this.gameRepository.deleteGameById(gameId);
 	}
 	
-	// TODO:
 	@Override
 	@Transactional(readOnly = true)
 	public List<Developer> getDevelopersOfGameById(UUID gameId) {
-//		Game game = this.getGameById(gameId);
-//		return game.getDevelopers();
-		return null;
+		Game game = this.getGameById(gameId);
+		return game.getDevelopers();
 	}
 
 }
