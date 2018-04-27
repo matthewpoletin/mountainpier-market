@@ -56,6 +56,11 @@ public class GameController {
 		return new GameResponse(this.gameService.getGameById(gameId));
 	}
 	
+	@RequestMapping(value = "/games/by", method = RequestMethod.GET)
+	public GameResponse getGameBy(@RequestParam("name") String name) {
+		return new GameResponse(this.gameService.getGameByName(name));
+	}
+	
 	@RequestMapping(value = "/games/{gameId}", method = RequestMethod.PATCH)
 	public GameResponse updateGameById(@PathVariable(name = "gameId") final UUID gameId,
 									   @RequestBody @Valid GameRequest gameRequest) {
