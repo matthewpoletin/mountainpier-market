@@ -58,13 +58,13 @@ public class DeveloperController {
 	}
 
 	@RequestMapping(value = "/developers/by", method = RequestMethod.GET)
-	public DeveloperResponse getDeveloperBy(@RequestParam(value = "userUuid", required = false) @Size(min = 36, max = 36) final String userUuid,
+	public DeveloperResponse getDeveloperBy(@RequestParam(value = "userId", required = false) @Size(min = 36, max = 36) final String userId,
 											@RequestParam(name = "name", required = false) final String name,
 											@RequestParam(name = "email", required = false) final String email,
 									   		HttpServletResponse response) {
 		Developer developer;
-		if (userUuid != null && userUuid .length() == 36) {
-			developer = developerService.getDeveloperByUserUuid(UUID.fromString(userUuid));
+		if (userId != null && userId .length() == 36) {
+			developer = developerService.getDeveloperByUserUuid(UUID.fromString(userId));
 		}
 		else if (name != null && name.length() > 0) {
 			developer = developerService.getDeveloperByName(name);

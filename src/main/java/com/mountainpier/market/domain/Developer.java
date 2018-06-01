@@ -19,8 +19,8 @@ public class Developer {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(name = "developers_user_uuid", unique = true)
-	private UUID userUuid;
+	@Column(name = "developers_user_id", unique = true)
+	private UUID userId;
 	
 	// TODO: Make unique case-insensitive
 	@Column(name = "developers_name", unique = true)

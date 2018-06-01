@@ -10,7 +10,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class DeveloperResponse {
 	private Integer id;
-	private String userUuid;
+	private String userId;
 	private String name;
 	private String description;
 	private String website;
@@ -20,7 +20,7 @@ public class DeveloperResponse {
 
 	public DeveloperResponse(Developer developer) {
 		this.id = developer.getId();
-		this.userUuid = developer.getUserUuid().toString();
+		this.userId = developer.getUserId().toString();
 		this.name = developer.getName();
 		this.description = developer.getDescription();
 		this.website = developer.getWebsite();

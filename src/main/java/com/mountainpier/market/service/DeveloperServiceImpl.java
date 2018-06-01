@@ -41,7 +41,7 @@ public class DeveloperServiceImpl implements DeveloperService {
 	@Transactional
 	public Developer createDeveloper(DeveloperRequest developerRequest) {
 		Developer developer = new Developer()
-				.setUserUuid(UUID.fromString(developerRequest.getUserUuid()))
+				.setUserId(UUID.fromString(developerRequest.getUserId()))
 				.setName(developerRequest.getName())
 				.setDescription(developerRequest.getDescription())
 				.setWebsite(developerRequest.getWebsite())
@@ -60,8 +60,8 @@ public class DeveloperServiceImpl implements DeveloperService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public Developer getDeveloperByUserUuid(UUID userUuid) {
-		return developerRepository.getDeveloperByUserUuid(userUuid);
+	public Developer getDeveloperByUserUuid(UUID userId) {
+		return developerRepository.getDeveloperByUserId(userId);
 	}
 	
 	@Override

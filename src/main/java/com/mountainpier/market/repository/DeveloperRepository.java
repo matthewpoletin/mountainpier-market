@@ -14,7 +14,7 @@ public interface DeveloperRepository
 	
 	Developer getDeveloperByEmailIgnoreCase(String regEmail);
 	
-	Developer getDeveloperByUserUuid(UUID userUuid);
+	Developer getDeveloperByUserId(UUID userId);
 	
 	Page<Developer> getDevelopersByNameContainingIgnoreCase(String name, Pageable pageable);
 }
