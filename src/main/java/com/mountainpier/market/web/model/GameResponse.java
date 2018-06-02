@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -17,6 +19,7 @@ public class GameResponse {
 	private String avatar;
 	private Date releaseDate;
 	private BigDecimal price;
+	private List<DeveloperResponse> developers;
 	
 	public GameResponse(Game game) {
 		this.id = game.getId().toString();
@@ -25,6 +28,10 @@ public class GameResponse {
 		this.avatar = game.getAvatar();
 		this.releaseDate = game.getReleaseDate();
 		this.price = game.getPrice();
+		this.developers = game.getDevelopers()
+			.stream()
+			.map(DeveloperResponse::new)
+			.collect(Collectors.toList());
 	}
 	
 }
