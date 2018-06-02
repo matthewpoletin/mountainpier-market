@@ -45,8 +45,8 @@ public class DeveloperController {
 
 	@ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(value = "/developers", method = RequestMethod.POST)
-	public DeveloperResponse createUDeveloper(@RequestBody @Valid DeveloperRequest developerRequest,
-											  HttpServletResponse response) {
+	public DeveloperResponse createDeveloper(@RequestBody @Valid DeveloperRequest developerRequest,
+											 HttpServletResponse response) {
 		Developer developer = developerService.createDeveloper(developerRequest);
 		response.addHeader(HttpHeaders.LOCATION, developerBaseURI + "/developers/" + developer.getId());
 		return new DeveloperResponse(developer);

@@ -81,4 +81,10 @@ public class GameController {
 			.collect(Collectors.toList());
 	}
 	
+	@RequestMapping(value = "/games/{gameId}/developers/{developerId}", method = RequestMethod.POST)
+	public GameResponse setDeveloperOfGame(@PathVariable("gameId") final UUID gameId,
+										   @PathVariable("developerId") final Integer developerId) {
+		return new GameResponse(this.gameService.setDeveloper(gameId, developerId));
+	}
+	
 }

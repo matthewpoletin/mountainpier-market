@@ -10,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,9 +18,13 @@ public class GameServiceImpl implements GameService {
 	
 	private final GameRepository gameRepository;
 	
+	private final DeveloperService developerService;
+	
 	@Autowired
-	public GameServiceImpl(GameRepository gameRepository) {
+	public GameServiceImpl(GameRepository gameRepository,
+						   DeveloperService developerService) {
 		this.gameRepository = gameRepository;
+		this.developerService = developerService;
 	}
 	
 	@Override
@@ -67,7 +70,7 @@ public class GameServiceImpl implements GameService {
 		game.setDescription(gameRequest.getDescription() != null ? gameRequest.getDescription() : gameRequest.getDescription());
 		game.setAvatar(gameRequest.getAvatar() != null ? gameRequest.getAvatar() : gameRequest.getAvatar());
 		game.setReleaseDate(gameRequest.getReleaseDate() != null ? gameRequest.getReleaseDate() : gameRequest.getReleaseDate());
-		game.setPrice(gameRequest.getPrice() != null ? gameRequest.getPrice() : gameRequest.getPrice());;
+		game.setPrice(gameRequest.getPrice() != null ? gameRequest.getPrice() : gameRequest.getPrice());
 		return this.gameRepository.save(game);
 	}
 	
@@ -83,5 +86,14 @@ public class GameServiceImpl implements GameService {
 		Game game = this.getGameById(gameId);
 		return game.getDevelopers();
 	}
-
+	
+	@Override
+	@Transactional
+	public Game setDeveloper(UUID gameId, Integer developerId) {
+		Game game = this.getGameById(gameId);
+		Developer developer = developerService.getDeveloperById(developerId);
+		game.getDevelopers().add(developer);
+		return this.gameRepository.save(game);
+	}
+	
 }

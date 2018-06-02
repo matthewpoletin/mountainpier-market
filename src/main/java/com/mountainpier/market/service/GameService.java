@@ -18,4 +18,5 @@ public interface GameService {
 	void deleteGameById(UUID gameId);
 	
 	List<Developer> getDevelopersOfGameById(UUID gameId);
+	Game setDeveloper(UUID gameId, Integer developerId);
 }
